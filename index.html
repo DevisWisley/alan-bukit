@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
+<html lang="id" class="scroll-smooth dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ahmad Rizki — Full Stack Developer</title>
+    <title>Alan Bukit — Direktur Mobile Legend</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -14,6 +14,7 @@
     <!-- Tailwind Config -->
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
@@ -74,9 +75,19 @@
         
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+        
+        /* ===== LIGHT MODE (default fallback) ===== */
+        body {
             background: #0a0a0f;
             color: #e2e8f0;
-            overflow-x: hidden;
+        }
+        
+        html:not(.dark) body {
+            background: #f8fafc;
+            color: #1e293b;
         }
         
         /* ===== Custom Cursor ===== */
@@ -125,6 +136,7 @@
             justify-content: center;
             transition: opacity 0.8s ease, visibility 0.8s ease;
         }
+        html:not(.dark) #loader { background: #f8fafc; }
         #loader.hidden { opacity: 0; visibility: hidden; }
         
         .loader-text {
@@ -171,6 +183,13 @@
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.5s ease;
+        }
+        
+        html:not(.dark) .glass {
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(124, 58, 237, 0.12);
+            box-shadow: 0 4px 20px rgba(124, 58, 237, 0.06);
         }
         
         .glass-strong {
@@ -178,6 +197,12 @@
             backdrop-filter: blur(30px);
             -webkit-backdrop-filter: blur(30px);
             border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.5s ease;
+        }
+        
+        html:not(.dark) .glass-strong {
+            background: rgba(255, 255, 255, 0.85);
+            border: 1px solid rgba(124, 58, 237, 0.15);
         }
         
         /* ===== Gradient Border Card ===== */
@@ -185,7 +210,13 @@
             position: relative;
             background: #0f0f18;
             border-radius: 1.5rem;
+            transition: background 0.5s ease;
         }
+        
+        html:not(.dark) .gradient-border {
+            background: #ffffff;
+        }
+        
         .gradient-border::before {
             content: '';
             position: absolute;
@@ -210,6 +241,11 @@
             filter: blur(80px);
             opacity: 0.4;
             animation: blob 7s infinite;
+            transition: opacity 0.5s ease;
+        }
+        
+        html:not(.dark) .blob {
+            opacity: 0.25;
         }
         
         /* ===== Marquee ===== */
@@ -331,7 +367,8 @@
         
         /* ===== Scrollbar ===== */
         ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #0a0a0f; }
+        ::-webkit-scrollbar-track { background: #0a0a0f; transition: background 0.5s ease; }
+        html:not(.dark) ::-webkit-scrollbar-track { background: #f1f5f9; }
         ::-webkit-scrollbar-thumb {
             background: linear-gradient(180deg, #7c3aed, #ec4899);
             border-radius: 4px;
@@ -345,6 +382,12 @@
             background-size: 50px 50px;
             mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
             -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+        }
+        
+        html:not(.dark) .grid-pattern {
+            background-image: 
+                linear-gradient(rgba(124, 58, 237, 0.12) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(124, 58, 237, 0.12) 1px, transparent 1px);
         }
         
         /* ===== Spotlight ===== */
@@ -400,6 +443,11 @@
             opacity: 0.7;
         }
         
+        html:not(.dark) .particle {
+            background: #7c3aed;
+            box-shadow: 0 0 10px rgba(124, 58, 237, 0.6), 0 0 20px rgba(236, 72, 153, 0.4);
+        }
+        
         @keyframes particleFloat {
             0%, 100% {
                 transform: translateY(0) translateX(0);
@@ -414,22 +462,141 @@
         /* ===== Hero Background Parallax ===== */
         #heroBg {
             will-change: transform;
-            transition: transform 0.1s ease-out;
+            transition: transform 0.1s ease-out, opacity 0.5s ease;
+        }
+        
+        html:not(.dark) #heroBg {
+            opacity: 0.15;
         }
         
         /* ===== Project Overlay ===== */
         .project-overlay {
             transition: opacity 0.3s ease;
         }
+        
+        /* ===== THEME TOGGLE BUTTON ===== */
+        .theme-toggle {
+            position: relative;
+            width: 60px;
+            height: 32px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            cursor: pointer;
+            transition: all 0.5s ease;
+            overflow: hidden;
+        }
+        
+        html:not(.dark) .theme-toggle {
+            background: rgba(124, 58, 237, 0.08);
+            border: 1px solid rgba(124, 58, 237, 0.2);
+        }
+        
+        .theme-toggle-knob {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #7c3aed, #ec4899);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 10px rgba(124, 58, 237, 0.4);
+        }
+        
+        html:not(.dark) .theme-toggle-knob {
+            left: calc(100% - 27px);
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            box-shadow: 0 2px 10px rgba(251, 191, 36, 0.5);
+        }
+        
+        .theme-toggle-knob i {
+            font-size: 12px;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        html:not(.dark) .theme-toggle-knob i {
+            color: white;
+        }
+        
+        /* ===== LIGHT MODE TEXT ADJUSTMENTS ===== */
+        html:not(.dark) .text-white { color: #0f172a; }
+        html:not(.dark) .text-slate-200 { color: #1e293b; }
+        html:not(.dark) .text-slate-300 { color: #334155; }
+        html:not(.dark) .text-slate-400 { color: #475569; }
+        html:not(.dark) .text-slate-500 { color: #64748b; }
+        
+        /* Light mode text on colored backgrounds should remain white */
+        html:not(.dark) .keep-white .text-white,
+        html:not(.dark) .keep-white h1,
+        html:not(.dark) .keep-white h2,
+        html:not(.dark) .keep-white h3 {
+            color: white;
+        }
+        
+        /* Fix for hero heading in light mode - keep gradient and adjust */
+        html:not(.dark) #hero h1 .text-white {
+            color: #0f172a;
+        }
+        
+        html:not(.dark) #hero h1 .text-white\/40 {
+            color: rgba(15, 23, 42, 0.4);
+        }
+        
+        /* Fix section titles in light mode */
+        html:not(.dark) h2.font-display,
+        html:not(.dark) h3.font-display,
+        html:not(.dark) h4.font-display {
+            color: #0f172a;
+        }
+        
+        /* Form inputs */
+        html:not(.dark) input,
+        html:not(.dark) textarea {
+            background: rgba(0, 0, 0, 0.03) !important;
+            border-color: rgba(124, 58, 237, 0.15) !important;
+            color: #0f172a !important;
+        }
+        
+        html:not(.dark) input::placeholder,
+        html:not(.dark) textarea::placeholder {
+            color: #94a3b8 !important;
+        }
+        
+        /* Marquee text */
+        html:not(.dark) .marquee-track span:not(.text-pink-500) {
+            color: #64748b;
+        }
+        
+        /* Footer adjustments */
+        html:not(.dark) footer {
+            background: #f1f5f9;
+            border-color: rgba(124, 58, 237, 0.1);
+        }
+        
+        /* Navbar glass background */
+        html:not(.dark) #navbar.bg-\[\#0a0a0f\]\/80 {
+            background: rgba(248, 250, 252, 0.85) !important;
+        }
+        
+        /* Smooth transition for all color changes */
+        body, nav, section, footer, div, h1, h2, h3, h4, p, span, a, button, input, textarea {
+            transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
+        }
     </style>
 </head>
-<body class="bg-[#0a0a0f] text-slate-200 overflow-x-hidden noise">
+<body class="bg-[#0a0a0f] dark:bg-[#0a0a0f] text-slate-200 dark:text-slate-200 overflow-x-hidden noise">
 
     <!-- ==================== LOADER ==================== -->
     <div id="loader">
         <div class="text-center">
             <div class="loader-text">Alan Bukit</div>
-            <div class="mt-6 w-48 h-1 bg-white/10 rounded-full overflow-hidden mx-auto">
+            <div class="mt-6 w-48 h-1 bg-white/10 dark:bg-white/10 rounded-full overflow-hidden mx-auto">
                 <div id="loaderBar" class="h-full bg-gradient-to-r from-violet-500 via-pink-500 to-cyan-500 transition-all duration-300" style="width: 0%"></div>
             </div>
         </div>
@@ -449,38 +616,47 @@
                 <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-500 to-pink-500 flex items-center justify-center font-bold text-white text-lg group-hover:rotate-12 transition-transform duration-300 shadow-lg shadow-pink-500/30">
                     AR
                 </div>
-                <span class="text-xl font-bold font-display text-white hidden sm:block">Ahmad<span class="text-pink-500">.</span></span>
+                <span class="text-xl font-bold font-display text-white dark:text-white hidden sm:block">Alan<span class="text-pink-500">.</span></span>
             </a>
             
-            <div class="hidden md:flex items-center gap-1 bg-white/5 backdrop-blur-xl border border-white/10 rounded-full px-2 py-2">
-                <a href="#hero" class="nav-link px-4 py-2 text-sm font-medium text-slate-300 hover:text-white rounded-full">Home</a>
-                <a href="#about" class="nav-link px-4 py-2 text-sm font-medium text-slate-300 hover:text-white rounded-full">About</a>
-                <a href="#qualification" class="nav-link px-4 py-2 text-sm font-medium text-slate-300 hover:text-white rounded-full">Qualification</a>
-                <a href="#achievement" class="nav-link px-4 py-2 text-sm font-medium text-slate-300 hover:text-white rounded-full">Achievement</a>
-                <a href="#projects" class="nav-link px-4 py-2 text-sm font-medium text-slate-300 hover:text-white rounded-full">Projects</a>
-                <a href="#testimoni" class="nav-link px-4 py-2 text-sm font-medium text-slate-300 hover:text-white rounded-full">Testimoni</a>
+            <div class="hidden md:flex items-center gap-1 bg-white/5 dark:bg-white/5 backdrop-blur-xl border border-white/10 dark:border-white/10 rounded-full px-2 py-2">
+                <a href="#hero" class="nav-link px-4 py-2 text-sm font-medium text-slate-300 dark:text-slate-300 hover:text-white dark:hover:text-white rounded-full">Home</a>
+                <a href="#about" class="nav-link px-4 py-2 text-sm font-medium text-slate-300 dark:text-slate-300 hover:text-white dark:hover:text-white rounded-full">About</a>
+                <a href="#qualification" class="nav-link px-4 py-2 text-sm font-medium text-slate-300 dark:text-slate-300 hover:text-white dark:hover:text-white rounded-full">Qualification</a>
+                <a href="#achievement" class="nav-link px-4 py-2 text-sm font-medium text-slate-300 dark:text-slate-300 hover:text-white dark:hover:text-white rounded-full">Achievement</a>
+                <a href="#projects" class="nav-link px-4 py-2 text-sm font-medium text-slate-300 dark:text-slate-300 hover:text-white dark:hover:text-white rounded-full">Projects</a>
+                <a href="#testimoni" class="nav-link px-4 py-2 text-sm font-medium text-slate-300 dark:text-slate-300 hover:text-white dark:hover:text-white rounded-full">Testimoni</a>
             </div>
             
-            <a href="#contact" class="magnetic hidden md:inline-flex items-center gap-2 bg-gradient-to-r from-violet-600 to-pink-600 text-white px-6 py-2.5 rounded-full font-semibold text-sm hover:shadow-lg hover:shadow-pink-500/50 transition-all duration-300">
-                <span>Hubungi Saya</span>
-                <i class="fas fa-arrow-right text-xs"></i>
-            </a>
-            
-            <button id="menuBtn" class="md:hidden w-11 h-11 rounded-xl glass flex items-center justify-center text-white">
-                <i class="fas fa-bars"></i>
-            </button>
+            <div class="flex items-center gap-3">
+                <!-- Theme Toggle -->
+                <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
+                    <div class="theme-toggle-knob">
+                        <i id="themeIcon" class="fas fa-moon"></i>
+                    </div>
+                </button>
+                
+                <a href="#contact" class="magnetic hidden md:inline-flex items-center gap-2 bg-gradient-to-r from-violet-600 to-pink-600 text-white px-6 py-2.5 rounded-full font-semibold text-sm hover:shadow-lg hover:shadow-pink-500/50 transition-all duration-300">
+                    <span>Hubungi Saya</span>
+                    <i class="fas fa-arrow-right text-xs"></i>
+                </a>
+                
+                <button id="menuBtn" class="md:hidden w-11 h-11 rounded-xl glass flex items-center justify-center text-white dark:text-white">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
         </div>
         
         <!-- Mobile Menu -->
         <div id="mobileMenu" class="hidden md:hidden glass-strong mx-4 mt-3 rounded-2xl p-6">
             <div class="flex flex-col gap-3">
-                <a href="#hero" class="text-slate-200 hover:text-pink-500 font-medium py-2 transition">Home</a>
-                <a href="#about" class="text-slate-200 hover:text-pink-500 font-medium py-2 transition">About</a>
-                <a href="#qualification" class="text-slate-200 hover:text-pink-500 font-medium py-2 transition">Qualification</a>
-                <a href="#achievement" class="text-slate-200 hover:text-pink-500 font-medium py-2 transition">Achievement</a>
-                <a href="#projects" class="text-slate-200 hover:text-pink-500 font-medium py-2 transition">Projects</a>
-                <a href="#testimoni" class="text-slate-200 hover:text-pink-500 font-medium py-2 transition">Testimoni</a>
-                <a href="#contact" class="text-slate-200 hover:text-pink-500 font-medium py-2 transition">Contact</a>
+                <a href="#hero" class="text-slate-200 dark:text-slate-200 hover:text-pink-500 font-medium py-2 transition">Home</a>
+                <a href="#about" class="text-slate-200 dark:text-slate-200 hover:text-pink-500 font-medium py-2 transition">About</a>
+                <a href="#qualification" class="text-slate-200 dark:text-slate-200 hover:text-pink-500 font-medium py-2 transition">Qualification</a>
+                <a href="#achievement" class="text-slate-200 dark:text-slate-200 hover:text-pink-500 font-medium py-2 transition">Achievement</a>
+                <a href="#projects" class="text-slate-200 dark:text-slate-200 hover:text-pink-500 font-medium py-2 transition">Projects</a>
+                <a href="#testimoni" class="text-slate-200 dark:text-slate-200 hover:text-pink-500 font-medium py-2 transition">Testimoni</a>
+                <a href="#contact" class="text-slate-200 dark:text-slate-200 hover:text-pink-500 font-medium py-2 transition">Contact</a>
             </div>
         </div>
     </nav>
@@ -493,18 +669,10 @@
             <img 
                 src="https://wallpapercave.com/wp/wp4555794.jpg" 
                 alt="Background" 
-                class="w-full h-full object-cover opacity-30 scale-110"
+                class="w-full h-full object-cover opacity-30 dark:opacity-30 scale-110"
                 id="heroBg"
             >
         </div>
-
-        <!-- ===== LAYER 3: Animated Gradient Mesh ===== -->
-        <div class="absolute inset-0 z-0 opacity-50" style="
-            background: radial-gradient(circle at 20% 30%, rgba(124, 58, 237, 0.5) 0%, transparent 40%),
-                        radial-gradient(circle at 80% 70%, rgba(236, 72, 153, 0.5) 0%, transparent 40%),
-                        radial-gradient(circle at 50% 50%, rgba(6, 182, 212, 0.4) 0%, transparent 40%);
-            filter: blur(60px);
-        "></div>
 
         <!-- ===== LAYER 4: Grid Pattern ===== -->
         <div class="absolute inset-0 grid-pattern opacity-60 z-0"></div>
@@ -515,7 +683,7 @@
         "></div>
 
         <!-- ===== LAYER 6: Vignette ===== -->
-        <div class="absolute inset-0 pointer-events-none z-0" style="
+        <div class="absolute inset-0 pointer-events-none z-0" id="heroVignette" style="
             background: radial-gradient(ellipse at center, transparent 30%, #0a0a0f 100%);
         "></div>
 
@@ -546,18 +714,18 @@
                         <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                         <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
                     </span>
-                    <span class="text-slate-300">Tersedia untuk proyek freelance</span>
+                    <span class="text-slate-300 dark:text-slate-300">Tersedia untuk proyek freelance</span>
                 </div>
                 
                 <h1 class="font-display text-5xl md:text-7xl lg:text-8xl font-bold leading-[0.95] mb-6 reveal">
-                    <span class="block text-white">Halo, saya</span>
+                    <span class="block text-white dark:text-white">Halo, saya</span>
                     <span class="block gradient-animated">Alan Bukit</span>
-                    <span class="block text-white/40 text-3xl md:text-5xl lg:text-6xl mt-4">Direktur Mobile Legend</span>
+                    <span class="block text-white/40 dark:text-white/40 text-3xl md:text-5xl lg:text-6xl mt-4">Direktur Mobile Legend</span>
                 </h1>
                 
-                <p class="text-lg text-slate-400 mb-10 max-w-xl leading-relaxed reveal">
-                    Saya merancang dan membangun pengalaman digital yang <span class="text-white font-medium">memukau</span>, 
-                    <span class="text-white font-medium">fungsional</span>, dan <span class="text-white font-medium">berkesan</span> — 
+                <p class="text-lg text-slate-400 dark:text-slate-400 mb-10 max-w-xl leading-relaxed reveal">
+                    Saya merancang dan membangun pengalaman digital yang <span class="text-white dark:text-white font-medium">memukau</span>, 
+                    <span class="text-white dark:text-white font-medium">fungsional</span>, dan <span class="text-white dark:text-white font-medium">berkesan</span> — 
                     dari konsep hingga peluncuran.
                 </p>
                 
@@ -567,7 +735,7 @@
                         <i class="fas fa-arrow-right text-sm relative z-10 group-hover:translate-x-1 transition-transform"></i>
                         <div class="absolute inset-0 bg-gradient-to-r from-pink-600 to-violet-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     </a>
-                    <a href="#projects" class="magnetic inline-flex items-center gap-3 glass text-white px-8 py-4 rounded-full font-semibold hover:border-pink-500/50 transition-all duration-300">
+                    <a href="#projects" class="magnetic inline-flex items-center gap-3 glass text-white dark:text-white px-8 py-4 rounded-full font-semibold hover:border-pink-500/50 transition-all duration-300">
                         <i class="fas fa-play text-xs"></i>
                         <span>Lihat Karya</span>
                     </a>
@@ -575,17 +743,17 @@
                 
                 <!-- Social Icons -->
                 <div class="flex items-center gap-3 reveal">
-                    <span class="text-xs text-slate-500 uppercase tracking-widest mr-2">Ikuti</span>
-                    <a href="#" class="social-icon w-11 h-11 glass rounded-xl flex items-center justify-center text-slate-300 hover:text-white hover:border-pink-500/50 hover:-translate-y-1 transition-all duration-300">
+                    <span class="text-xs text-slate-500 dark:text-slate-500 uppercase tracking-widest mr-2">Ikuti</span>
+                    <a href="#" class="social-icon w-11 h-11 glass rounded-xl flex items-center justify-center text-slate-300 dark:text-slate-300 hover:text-white hover:border-pink-500/50 hover:-translate-y-1 transition-all duration-300">
                         <i class="fab fa-github"></i>
                     </a>
-                    <a href="#" class="social-icon w-11 h-11 glass rounded-xl flex items-center justify-center text-slate-300 hover:text-white hover:border-pink-500/50 hover:-translate-y-1 transition-all duration-300">
+                    <a href="#" class="social-icon w-11 h-11 glass rounded-xl flex items-center justify-center text-slate-300 dark:text-slate-300 hover:text-white hover:border-pink-500/50 hover:-translate-y-1 transition-all duration-300">
                         <i class="fab fa-linkedin-in"></i>
                     </a>
-                    <a href="#" class="social-icon w-11 h-11 glass rounded-xl flex items-center justify-center text-slate-300 hover:text-white hover:border-pink-500/50 hover:-translate-y-1 transition-all duration-300">
+                    <a href="#" class="social-icon w-11 h-11 glass rounded-xl flex items-center justify-center text-slate-300 dark:text-slate-300 hover:text-white hover:border-pink-500/50 hover:-translate-y-1 transition-all duration-300">
                         <i class="fab fa-instagram"></i>
                     </a>
-                    <a href="#" class="social-icon w-11 h-11 glass rounded-xl flex items-center justify-center text-slate-300 hover:text-white hover:border-pink-500/50 hover:-translate-y-1 transition-all duration-300">
+                    <a href="#" class="social-icon w-11 h-11 glass rounded-xl flex items-center justify-center text-slate-300 dark:text-slate-300 hover:text-white hover:border-pink-500/50 hover:-translate-y-1 transition-all duration-300">
                         <i class="fab fa-dribbble"></i>
                     </a>
                 </div>
@@ -594,10 +762,8 @@
             <!-- Hero Visual -->
             <div class="md:col-span-5 hidden md:flex justify-center items-center relative reveal">
                 <div class="relative w-96 h-96">
-                    <!-- Glow behind avatar -->
                     <div class="absolute inset-0 rounded-full bg-gradient-to-br from-violet-600 via-pink-600 to-cyan-500 opacity-40 blur-3xl"></div>
 
-                    <!-- Rotating Ring -->
                     <div class="absolute inset-0 avatar-ring rounded-full opacity-40 blur-md"></div>
                     <div class="absolute inset-2 avatar-ring rounded-full p-[2px]">
                         <div class="w-full h-full rounded-full bg-[#0a0a0f] flex items-center justify-center overflow-hidden">
@@ -607,15 +773,14 @@
                         </div>
                     </div>
                     
-                    <!-- Floating Cards -->
                     <div class="absolute -top-4 -right-8 glass-strong rounded-2xl px-5 py-4 animate-float shadow-2xl">
                         <div class="flex items-center gap-3">
                             <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-500 to-pink-500 flex items-center justify-center">
                                 <i class="fas fa-code text-white"></i>
                             </div>
                             <div>
-                                <p class="text-2xl font-bold text-white font-display">5+</p>
-                                <p class="text-xs text-slate-400">Tahun</p>
+                                <p class="text-2xl font-bold text-white dark:text-white font-display">5+</p>
+                                <p class="text-xs text-slate-400 dark:text-slate-400">Tahun</p>
                             </div>
                         </div>
                     </div>
@@ -626,8 +791,8 @@
                                 <i class="fas fa-rocket text-white"></i>
                             </div>
                             <div>
-                                <p class="text-2xl font-bold text-white font-display">50+</p>
-                                <p class="text-xs text-slate-400">Proyek</p>
+                                <p class="text-2xl font-bold text-white dark:text-white font-display">50+</p>
+                                <p class="text-xs text-slate-400 dark:text-slate-400">Proyek</p>
                             </div>
                         </div>
                     </div>
@@ -635,20 +800,19 @@
                     <div class="absolute top-1/2 -right-12 glass-strong rounded-full px-4 py-2 animate-float" style="animation-delay: 2s;">
                         <div class="flex items-center gap-2">
                             <i class="fas fa-star text-yellow-400 text-xs"></i>
-                            <span class="text-xs font-semibold text-white">5.0 Rating</span>
+                            <span class="text-xs font-semibold text-white dark:text-white">5.0 Rating</span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         
-        <!-- Scroll Indicator -->
         <div class="scroll-line"></div>
         
         <!-- Marquee -->
-        <div class="absolute bottom-0 left-0 right-0 border-y border-white/5 py-5 overflow-hidden bg-black/40 backdrop-blur-md z-10">
+        <div class="absolute bottom-0 left-0 right-0 border-y border-white/5 dark:border-white/5 py-5 overflow-hidden bg-black/40 dark:bg-black/40 backdrop-blur-md z-10">
             <div class="marquee-track">
-                <div class="flex items-center gap-12 px-6 text-slate-500 font-display font-semibold text-2xl whitespace-nowrap">
+                <div class="flex items-center gap-12 px-6 text-slate-500 dark:text-slate-500 font-display font-semibold text-2xl whitespace-nowrap">
                     <span>React</span><span class="text-pink-500">✦</span>
                     <span>Node.js</span><span class="text-pink-500">✦</span>
                     <span>TypeScript</span><span class="text-pink-500">✦</span>
@@ -671,7 +835,7 @@
     </section>
 
     <!-- ==================== ABOUT SECTION ==================== -->
-    <section id="about" class="py-32 bg-[#0a0a0f] relative overflow-hidden">
+    <section id="about" class="py-32 bg-[#0a0a0f] dark:bg-[#0a0a0f] relative overflow-hidden">
         <div class="blob w-[500px] h-[500px] bg-violet-600/30 top-0 right-0"></div>
         
         <div class="max-w-7xl mx-auto px-6 relative z-10">
@@ -680,105 +844,102 @@
                     <span class="w-8 h-px bg-pink-500"></span>
                     Tentang Saya
                 </span>
-                <h2 class="font-display text-4xl md:text-6xl font-bold text-white mt-4 leading-tight">
+                <h2 class="font-display text-4xl md:text-6xl font-bold text-white dark:text-white mt-4 leading-tight">
                     Developer yang <span class="gradient-animated">fokus pada hasil</span>
                 </h2>
             </div>
             
             <div class="grid md:grid-cols-12 gap-8">
-                <!-- Left: Bio -->
                 <div class="md:col-span-7 space-y-8 reveal">
                     <div class="glass rounded-3xl p-8 md:p-10">
-                        <h3 class="font-display text-2xl md:text-3xl font-bold text-white mb-6 leading-tight">
+                        <h3 class="font-display text-2xl md:text-3xl font-bold text-white dark:text-white mb-6 leading-tight">
                             Saya menggabungkan <span class="text-pink-500">estetika</span> dengan <span class="text-cyan-400">teknologi</span> untuk menciptakan produk digital yang berdampak.
                         </h3>
-                        <p class="text-slate-400 leading-relaxed mb-4">
+                        <p class="text-slate-400 dark:text-slate-400 leading-relaxed mb-4">
                             Dengan pengalaman lebih dari 5 tahun di industri teknologi, saya telah membantu berbagai startup dan perusahaan 
                             membangun produk digital yang scalable, cepat, dan user-friendly.
                         </p>
-                        <p class="text-slate-400 leading-relaxed">
+                        <p class="text-slate-400 dark:text-slate-400 leading-relaxed">
                             Saya percaya kode yang baik bukan hanya tentang fungsionalitas, tetapi juga tentang 
-                            <span class="text-white font-medium">kemudahan maintenance</span>, <span class="text-white font-medium">performa</span>, dan <span class="text-white font-medium">pengalaman pengguna</span>.
+                            <span class="text-white dark:text-white font-medium">kemudahan maintenance</span>, <span class="text-white dark:text-white font-medium">performa</span>, dan <span class="text-white dark:text-white font-medium">pengalaman pengguna</span>.
                         </p>
                     </div>
                     
-                    <!-- Skills -->
                     <div class="space-y-5">
-                        <h4 class="font-display text-lg font-bold text-white mb-4">Keahlian Utama</h4>
+                        <h4 class="font-display text-lg font-bold text-white dark:text-white mb-4">Keahlian Utama</h4>
                         
                         <div>
                             <div class="flex justify-between mb-2">
-                                <span class="text-sm font-medium text-slate-300">Frontend Development</span>
+                                <span class="text-sm font-medium text-slate-300 dark:text-slate-300">Frontend Development</span>
                                 <span class="text-sm font-bold text-pink-500">95%</span>
                             </div>
-                            <div class="w-full bg-white/5 rounded-full h-2 overflow-hidden">
+                            <div class="w-full bg-white/5 dark:bg-white/5 rounded-full h-2 overflow-hidden">
                                 <div class="skill-bar h-2 rounded-full" data-width="95%" style="width: 0%"></div>
                             </div>
                         </div>
                         
                         <div>
                             <div class="flex justify-between mb-2">
-                                <span class="text-sm font-medium text-slate-300">Backend Development</span>
+                                <span class="text-sm font-medium text-slate-300 dark:text-slate-300">Backend Development</span>
                                 <span class="text-sm font-bold text-pink-500">90%</span>
                             </div>
-                            <div class="w-full bg-white/5 rounded-full h-2 overflow-hidden">
+                            <div class="w-full bg-white/5 dark:bg-white/5 rounded-full h-2 overflow-hidden">
                                 <div class="skill-bar h-2 rounded-full" data-width="90%" style="width: 0%"></div>
                             </div>
                         </div>
                         
                         <div>
                             <div class="flex justify-between mb-2">
-                                <span class="text-sm font-medium text-slate-300">UI/UX Design</span>
+                                <span class="text-sm font-medium text-slate-300 dark:text-slate-300">UI/UX Design</span>
                                 <span class="text-sm font-bold text-pink-500">85%</span>
                             </div>
-                            <div class="w-full bg-white/5 rounded-full h-2 overflow-hidden">
+                            <div class="w-full bg-white/5 dark:bg-white/5 rounded-full h-2 overflow-hidden">
                                 <div class="skill-bar h-2 rounded-full" data-width="85%" style="width: 0%"></div>
                             </div>
                         </div>
                         
                         <div>
                             <div class="flex justify-between mb-2">
-                                <span class="text-sm font-medium text-slate-300">DevOps & Cloud</span>
+                                <span class="text-sm font-medium text-slate-300 dark:text-slate-300">DevOps & Cloud</span>
                                 <span class="text-sm font-bold text-pink-500">80%</span>
                             </div>
-                            <div class="w-full bg-white/5 rounded-full h-2 overflow-hidden">
+                            <div class="w-full bg-white/5 dark:bg-white/5 rounded-full h-2 overflow-hidden">
                                 <div class="skill-bar h-2 rounded-full" data-width="80%" style="width: 0%"></div>
                             </div>
                         </div>
                     </div>
                 </div>
                 
-                <!-- Right: Stats Grid -->
                 <div class="md:col-span-5 grid grid-cols-2 gap-4 reveal">
                     <div class="gradient-border p-6 flex flex-col justify-between aspect-square">
                         <i class="fas fa-code text-3xl text-violet-400"></i>
                         <div>
-                            <p class="font-display text-4xl md:text-5xl font-bold text-white counter" data-target="5">0</p>
-                            <p class="text-sm text-slate-400 mt-1">Tahun Pengalaman</p>
+                            <p class="font-display text-4xl md:text-5xl font-bold text-white dark:text-white counter" data-target="5">0</p>
+                            <p class="text-sm text-slate-400 dark:text-slate-400 mt-1">Tahun Pengalaman</p>
                         </div>
                     </div>
                     
                     <div class="gradient-border p-6 flex flex-col justify-between aspect-square">
                         <i class="fas fa-rocket text-3xl text-pink-400"></i>
                         <div>
-                            <p class="font-display text-4xl md:text-5xl font-bold text-white counter" data-target="50">0</p>
-                            <p class="text-sm text-slate-400 mt-1">Proyek Selesai</p>
+                            <p class="font-display text-4xl md:text-5xl font-bold text-white dark:text-white counter" data-target="50">0</p>
+                            <p class="text-sm text-slate-400 dark:text-slate-400 mt-1">Proyek Selesai</p>
                         </div>
                     </div>
                     
                     <div class="gradient-border p-6 flex flex-col justify-between aspect-square">
                         <i class="fas fa-smile text-3xl text-cyan-400"></i>
                         <div>
-                            <p class="font-display text-4xl md:text-5xl font-bold text-white counter" data-target="30">0</p>
-                            <p class="text-sm text-slate-400 mt-1">Klien Puas</p>
+                            <p class="font-display text-4xl md:text-5xl font-bold text-white dark:text-white counter" data-target="30">0</p>
+                            <p class="text-sm text-slate-400 dark:text-slate-400 mt-1">Klien Puas</p>
                         </div>
                     </div>
                     
                     <div class="gradient-border p-6 flex flex-col justify-between aspect-square">
                         <i class="fas fa-award text-3xl text-yellow-400"></i>
                         <div>
-                            <p class="font-display text-4xl md:text-5xl font-bold text-white counter" data-target="15">0</p>
-                            <p class="text-sm text-slate-400 mt-1">Penghargaan</p>
+                            <p class="font-display text-4xl md:text-5xl font-bold text-white dark:text-white counter" data-target="15">0</p>
+                            <p class="text-sm text-slate-400 dark:text-slate-400 mt-1">Penghargaan</p>
                         </div>
                     </div>
                 </div>
@@ -787,7 +948,7 @@
     </section>
 
     <!-- ==================== QUALIFICATION SECTION ==================== -->
-    <section id="qualification" class="py-32 bg-[#050508] relative overflow-hidden">
+    <section id="qualification" class="py-32 bg-[#050508] dark:bg-[#050508] relative overflow-hidden">
         <div class="blob w-[500px] h-[500px] bg-cyan-500/20 top-1/3 left-0"></div>
         
         <div class="max-w-7xl mx-auto px-6 relative z-10">
@@ -797,30 +958,29 @@
                     Kualifikasi
                     <span class="w-8 h-px bg-pink-500"></span>
                 </span>
-                <h2 class="font-display text-4xl md:text-6xl font-bold text-white mt-4">
+                <h2 class="font-display text-4xl md:text-6xl font-bold text-white dark:text-white mt-4">
                     Pendidikan & <span class="gradient-animated">Pengalaman</span>
                 </h2>
             </div>
             
             <div class="grid md:grid-cols-2 gap-16">
-                <!-- Education -->
                 <div class="reveal">
                     <div class="flex items-center gap-4 mb-10">
                         <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-violet-500 to-pink-500 flex items-center justify-center shadow-lg shadow-pink-500/30">
                             <i class="fas fa-graduation-cap text-white text-xl"></i>
                         </div>
-                        <h3 class="font-display text-2xl font-bold text-white">Pendidikan</h3>
+                        <h3 class="font-display text-2xl font-bold text-white dark:text-white">Pendidikan</h3>
                     </div>
                     
                     <div class="space-y-8">
                         <div class="timeline-item">
                             <div class="glass rounded-2xl p-6 hover:border-pink-500/30 transition-all duration-300">
                                 <span class="text-xs font-semibold text-pink-500 bg-pink-500/10 px-3 py-1 rounded-full">2018 — 2022</span>
-                                <h4 class="font-display text-lg font-bold text-white mt-3">Sarjana Teknik Informatika</h4>
-                                <p class="text-slate-400 text-sm mt-1">Universitas Teknologi Indonesia</p>
+                                <h4 class="font-display text-lg font-bold text-white dark:text-white mt-3">Sarjana Teknik Informatika</h4>
+                                <p class="text-slate-400 dark:text-slate-400 text-sm mt-1">Universitas Teknologi Indonesia</p>
                                 <div class="flex items-center gap-2 mt-3">
                                     <i class="fas fa-star text-yellow-400 text-xs"></i>
-                                    <p class="text-xs text-slate-500">IPK 3.85/4.00 — Cum Laude</p>
+                                    <p class="text-xs text-slate-500 dark:text-slate-500">IPK 3.85/4.00 — Cum Laude</p>
                                 </div>
                             </div>
                         </div>
@@ -828,11 +988,11 @@
                         <div class="timeline-item">
                             <div class="glass rounded-2xl p-6 hover:border-pink-500/30 transition-all duration-300">
                                 <span class="text-xs font-semibold text-violet-400 bg-violet-500/10 px-3 py-1 rounded-full">2022 — 2023</span>
-                                <h4 class="font-display text-lg font-bold text-white mt-3">Bootcamp Full Stack</h4>
-                                <p class="text-slate-400 text-sm mt-1">Dicoding Indonesia</p>
+                                <h4 class="font-display text-lg font-bold text-white dark:text-white mt-3">Bootcamp Full Stack</h4>
+                                <p class="text-slate-400 dark:text-slate-400 text-sm mt-1">Dicoding Indonesia</p>
                                 <div class="flex items-center gap-2 mt-3">
                                     <i class="fas fa-certificate text-violet-400 text-xs"></i>
-                                    <p class="text-xs text-slate-500">Sertifikasi BNSP</p>
+                                    <p class="text-xs text-slate-500 dark:text-slate-500">Sertifikasi BNSP</p>
                                 </div>
                             </div>
                         </div>
@@ -840,51 +1000,50 @@
                         <div class="timeline-item">
                             <div class="glass rounded-2xl p-6 hover:border-pink-500/30 transition-all duration-300">
                                 <span class="text-xs font-semibold text-cyan-400 bg-cyan-500/10 px-3 py-1 rounded-full">2023</span>
-                                <h4 class="font-display text-lg font-bold text-white mt-3">AWS Certified Developer</h4>
-                                <p class="text-slate-400 text-sm mt-1">Amazon Web Services</p>
+                                <h4 class="font-display text-lg font-bold text-white dark:text-white mt-3">AWS Certified Developer</h4>
+                                <p class="text-slate-400 dark:text-slate-400 text-sm mt-1">Amazon Web Services</p>
                                 <div class="flex items-center gap-2 mt-3">
                                     <i class="fas fa-cloud text-cyan-400 text-xs"></i>
-                                    <p class="text-xs text-slate-500">Associate Level</p>
+                                    <p class="text-xs text-slate-500 dark:text-slate-500">Associate Level</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 
-                <!-- Experience -->
                 <div class="reveal">
                     <div class="flex items-center gap-4 mb-10">
                         <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-cyan-500 to-violet-500 flex items-center justify-center shadow-lg shadow-cyan-500/30">
                             <i class="fas fa-briefcase text-white text-xl"></i>
                         </div>
-                        <h3 class="font-display text-2xl font-bold text-white">Pengalaman Kerja</h3>
+                        <h3 class="font-display text-2xl font-bold text-white dark:text-white">Pengalaman Kerja</h3>
                     </div>
                     
                     <div class="space-y-8">
                         <div class="timeline-item">
                             <div class="glass rounded-2xl p-6 hover:border-pink-500/30 transition-all duration-300">
                                 <span class="text-xs font-semibold text-green-400 bg-green-500/10 px-3 py-1 rounded-full">2023 — Sekarang</span>
-                                <h4 class="font-display text-lg font-bold text-white mt-3">Senior Full Stack Developer</h4>
-                                <p class="text-slate-400 text-sm mt-1">PT Digital Inovasi Nusantara</p>
-                                <p class="text-xs text-slate-500 mt-3">Memimpin tim 5 developer dalam pengembangan platform e-commerce</p>
+                                <h4 class="font-display text-lg font-bold text-white dark:text-white mt-3">Senior Full Stack Developer</h4>
+                                <p class="text-slate-400 dark:text-slate-400 text-sm mt-1">PT Digital Inovasi Nusantara</p>
+                                <p class="text-xs text-slate-500 dark:text-slate-500 mt-3">Memimpin tim 5 developer dalam pengembangan platform e-commerce</p>
                             </div>
                         </div>
                         
                         <div class="timeline-item">
                             <div class="glass rounded-2xl p-6 hover:border-pink-500/30 transition-all duration-300">
                                 <span class="text-xs font-semibold text-pink-500 bg-pink-500/10 px-3 py-1 rounded-full">2022 — 2023</span>
-                                <h4 class="font-display text-lg font-bold text-white mt-3">Frontend Developer</h4>
-                                <p class="text-slate-400 text-sm mt-1">Startup Tech Solution</p>
-                                <p class="text-xs text-slate-500 mt-3">Mengembangkan dashboard analytics dengan React & TypeScript</p>
+                                <h4 class="font-display text-lg font-bold text-white dark:text-white mt-3">Frontend Developer</h4>
+                                <p class="text-slate-400 dark:text-slate-400 text-sm mt-1">Startup Tech Solution</p>
+                                <p class="text-xs text-slate-500 dark:text-slate-500 mt-3">Mengembangkan dashboard analytics dengan React & TypeScript</p>
                             </div>
                         </div>
                         
                         <div class="timeline-item">
                             <div class="glass rounded-2xl p-6 hover:border-pink-500/30 transition-all duration-300">
                                 <span class="text-xs font-semibold text-cyan-400 bg-cyan-500/10 px-3 py-1 rounded-full">2021 — 2022</span>
-                                <h4 class="font-display text-lg font-bold text-white mt-3">Web Developer Intern</h4>
-                                <p class="text-slate-400 text-sm mt-1">CV Kreatif Digital</p>
-                                <p class="text-xs text-slate-500 mt-3">Membangun website company profile untuk UMKM</p>
+                                <h4 class="font-display text-lg font-bold text-white dark:text-white mt-3">Web Developer Intern</h4>
+                                <p class="text-slate-400 dark:text-slate-400 text-sm mt-1">CV Kreatif Digital</p>
+                                <p class="text-xs text-slate-500 dark:text-slate-500 mt-3">Membangun website company profile untuk UMKM</p>
                             </div>
                         </div>
                     </div>
@@ -894,7 +1053,7 @@
     </section>
 
     <!-- ==================== ACHIEVEMENT SECTION ==================== -->
-    <section id="achievement" class="py-32 bg-[#0a0a0f] relative overflow-hidden">
+    <section id="achievement" class="py-32 bg-[#0a0a0f] dark:bg-[#0a0a0f] relative overflow-hidden">
         <div class="blob w-[500px] h-[500px] bg-pink-600/20 top-0 right-1/4"></div>
         
         <div class="max-w-7xl mx-auto px-6 relative z-10">
@@ -904,7 +1063,7 @@
                     Pencapaian
                     <span class="w-8 h-px bg-pink-500"></span>
                 </span>
-                <h2 class="font-display text-4xl md:text-6xl font-bold text-white mt-4">
+                <h2 class="font-display text-4xl md:text-6xl font-bold text-white dark:text-white mt-4">
                     Penghargaan & <span class="gradient-animated">Sertifikasi</span>
                 </h2>
             </div>
@@ -917,8 +1076,8 @@
                         </div>
                         <span class="text-xs font-semibold text-yellow-400 bg-yellow-500/10 px-3 py-1 rounded-full">2024</span>
                     </div>
-                    <h3 class="font-display text-xl font-bold text-white mb-2">Best Developer of the Year</h3>
-                    <p class="text-slate-400 text-sm">PT Digital Inovasi Nusantara</p>
+                    <h3 class="font-display text-xl font-bold text-white dark:text-white mb-2">Best Developer of the Year</h3>
+                    <p class="text-slate-400 dark:text-slate-400 text-sm">PT Digital Inovasi Nusantara</p>
                 </div>
                 
                 <div class="glass rounded-3xl p-8 card-hover reveal spotlight">
@@ -928,8 +1087,8 @@
                         </div>
                         <span class="text-xs font-semibold text-pink-400 bg-pink-500/10 px-3 py-1 rounded-full">2023</span>
                     </div>
-                    <h3 class="font-display text-xl font-bold text-white mb-2">Juara 1 Hackathon Nasional</h3>
-                    <p class="text-slate-400 text-sm">Kementerian Komunikasi dan Informatika</p>
+                    <h3 class="font-display text-xl font-bold text-white dark:text-white mb-2">Juara 1 Hackathon Nasional</h3>
+                    <p class="text-slate-400 dark:text-slate-400 text-sm">Kementerian Komunikasi dan Informatika</p>
                 </div>
                 
                 <div class="glass rounded-3xl p-8 card-hover reveal spotlight">
@@ -939,8 +1098,8 @@
                         </div>
                         <span class="text-xs font-semibold text-violet-400 bg-violet-500/10 px-3 py-1 rounded-full">2023</span>
                     </div>
-                    <h3 class="font-display text-xl font-bold text-white mb-2">Google Developer Expert</h3>
-                    <p class="text-slate-400 text-sm">Google Indonesia</p>
+                    <h3 class="font-display text-xl font-bold text-white dark:text-white mb-2">Google Developer Expert</h3>
+                    <p class="text-slate-400 dark:text-slate-400 text-sm">Google Indonesia</p>
                 </div>
                 
                 <div class="glass rounded-3xl p-8 card-hover reveal spotlight">
@@ -950,15 +1109,15 @@
                         </div>
                         <span class="text-xs font-semibold text-cyan-400 bg-cyan-500/10 px-3 py-1 rounded-full">2024</span>
                     </div>
-                    <h3 class="font-display text-xl font-bold text-white mb-2">Speaker di Tech Conference</h3>
-                    <p class="text-slate-400 text-sm">Indonesia Developer Summit</p>
+                    <h3 class="font-display text-xl font-bold text-white dark:text-white mb-2">Speaker di Tech Conference</h3>
+                    <p class="text-slate-400 dark:text-slate-400 text-sm">Indonesia Developer Summit</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- ==================== PROJECT SECTION ==================== -->
-    <section id="projects" class="py-32 bg-[#050508] relative overflow-hidden">
+    <section id="projects" class="py-32 bg-[#050508] dark:bg-[#050508] relative overflow-hidden">
         <div class="blob w-[600px] h-[600px] bg-violet-600/20 bottom-0 right-0"></div>
         
         <div class="max-w-7xl mx-auto px-6 relative z-10">
@@ -968,17 +1127,16 @@
                     Portfolio
                     <span class="w-8 h-px bg-pink-500"></span>
                 </span>
-                <h2 class="font-display text-4xl md:text-6xl font-bold text-white mt-4">
+                <h2 class="font-display text-4xl md:text-6xl font-bold text-white dark:text-white mt-4">
                     Karya <span class="gradient-animated">Terbaru</span>
                 </h2>
             </div>
             
-            <!-- Filter -->
             <div class="flex flex-wrap justify-center gap-2 mb-14 reveal">
                 <button class="filter-btn active px-6 py-3 rounded-full font-semibold text-sm transition-all duration-300 bg-gradient-to-r from-violet-600 to-pink-600 text-white shadow-lg shadow-pink-500/30" data-filter="all">Semua</button>
-                <button class="filter-btn px-6 py-3 rounded-full font-semibold text-sm transition-all duration-300 glass text-slate-300 hover:text-white" data-filter="web">Web</button>
-                <button class="filter-btn px-6 py-3 rounded-full font-semibold text-sm transition-all duration-300 glass text-slate-300 hover:text-white" data-filter="mobile">Mobile</button>
-                <button class="filter-btn px-6 py-3 rounded-full font-semibold text-sm transition-all duration-300 glass text-slate-300 hover:text-white" data-filter="uiux">UI/UX</button>
+                <button class="filter-btn px-6 py-3 rounded-full font-semibold text-sm transition-all duration-300 glass text-slate-300 dark:text-slate-300 hover:text-white" data-filter="web">Web</button>
+                <button class="filter-btn px-6 py-3 rounded-full font-semibold text-sm transition-all duration-300 glass text-slate-300 dark:text-slate-300 hover:text-white" data-filter="mobile">Mobile</button>
+                <button class="filter-btn px-6 py-3 rounded-full font-semibold text-sm transition-all duration-300 glass text-slate-300 dark:text-slate-300 hover:text-white" data-filter="uiux">UI/UX</button>
             </div>
             
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="projectGrid">
@@ -997,12 +1155,12 @@
                         <span class="absolute top-4 left-4 text-xs font-semibold text-white bg-black/50 backdrop-blur-md px-3 py-1.5 rounded-full">Web</span>
                     </div>
                     <div class="p-6">
-                        <h3 class="font-display text-xl font-bold text-white mb-2 group-hover:text-pink-400 transition-colors">E-Commerce Platform</h3>
-                        <p class="text-slate-400 text-sm mb-4 leading-relaxed">Platform belanja online dengan fitur pembayaran dan dashboard admin.</p>
+                        <h3 class="font-display text-xl font-bold text-white dark:text-white mb-2 group-hover:text-pink-400 transition-colors">E-Commerce Platform</h3>
+                        <p class="text-slate-400 dark:text-slate-400 text-sm mb-4 leading-relaxed">Platform belanja online dengan fitur pembayaran dan dashboard admin.</p>
                         <div class="flex flex-wrap gap-2">
-                            <span class="text-xs bg-white/5 text-slate-300 px-3 py-1 rounded-full border border-white/10">React</span>
-                            <span class="text-xs bg-white/5 text-slate-300 px-3 py-1 rounded-full border border-white/10">Node.js</span>
-                            <span class="text-xs bg-white/5 text-slate-300 px-3 py-1 rounded-full border border-white/10">MongoDB</span>
+                            <span class="text-xs bg-white/5 text-slate-300 dark:text-slate-300 px-3 py-1 rounded-full border border-white/10">React</span>
+                            <span class="text-xs bg-white/5 text-slate-300 dark:text-slate-300 px-3 py-1 rounded-full border border-white/10">Node.js</span>
+                            <span class="text-xs bg-white/5 text-slate-300 dark:text-slate-300 px-3 py-1 rounded-full border border-white/10">MongoDB</span>
                         </div>
                     </div>
                 </div>
@@ -1022,11 +1180,11 @@
                         <span class="absolute top-4 left-4 text-xs font-semibold text-white bg-black/50 backdrop-blur-md px-3 py-1.5 rounded-full">Mobile</span>
                     </div>
                     <div class="p-6">
-                        <h3 class="font-display text-xl font-bold text-white mb-2 group-hover:text-pink-400 transition-colors">Health Tracker App</h3>
-                        <p class="text-slate-400 text-sm mb-4 leading-relaxed">Aplikasi monitoring kesehatan dengan tracking olahraga dan nutrisi.</p>
+                        <h3 class="font-display text-xl font-bold text-white dark:text-white mb-2 group-hover:text-pink-400 transition-colors">Health Tracker App</h3>
+                        <p class="text-slate-400 dark:text-slate-400 text-sm mb-4 leading-relaxed">Aplikasi monitoring kesehatan dengan tracking olahraga dan nutrisi.</p>
                         <div class="flex flex-wrap gap-2">
-                            <span class="text-xs bg-white/5 text-slate-300 px-3 py-1 rounded-full border border-white/10">Flutter</span>
-                            <span class="text-xs bg-white/5 text-slate-300 px-3 py-1 rounded-full border border-white/10">Firebase</span>
+                            <span class="text-xs bg-white/5 text-slate-300 dark:text-slate-300 px-3 py-1 rounded-full border border-white/10">Flutter</span>
+                            <span class="text-xs bg-white/5 text-slate-300 dark:text-slate-300 px-3 py-1 rounded-full border border-white/10">Firebase</span>
                         </div>
                     </div>
                 </div>
@@ -1046,11 +1204,11 @@
                         <span class="absolute top-4 left-4 text-xs font-semibold text-white bg-black/50 backdrop-blur-md px-3 py-1.5 rounded-full">UI/UX</span>
                     </div>
                     <div class="p-6">
-                        <h3 class="font-display text-xl font-bold text-white mb-2 group-hover:text-pink-400 transition-colors">Travel Booking App</h3>
-                        <p class="text-slate-400 text-sm mb-4 leading-relaxed">Desain UI/UX aplikasi pemesanan tiket travel yang modern.</p>
+                        <h3 class="font-display text-xl font-bold text-white dark:text-white mb-2 group-hover:text-pink-400 transition-colors">Travel Booking App</h3>
+                        <p class="text-slate-400 dark:text-slate-400 text-sm mb-4 leading-relaxed">Desain UI/UX aplikasi pemesanan tiket travel yang modern.</p>
                         <div class="flex flex-wrap gap-2">
-                            <span class="text-xs bg-white/5 text-slate-300 px-3 py-1 rounded-full border border-white/10">Figma</span>
-                            <span class="text-xs bg-white/5 text-slate-300 px-3 py-1 rounded-full border border-white/10">Adobe XD</span>
+                            <span class="text-xs bg-white/5 text-slate-300 dark:text-slate-300 px-3 py-1 rounded-full border border-white/10">Figma</span>
+                            <span class="text-xs bg-white/5 text-slate-300 dark:text-slate-300 px-3 py-1 rounded-full border border-white/10">Adobe XD</span>
                         </div>
                     </div>
                 </div>
@@ -1070,11 +1228,11 @@
                         <span class="absolute top-4 left-4 text-xs font-semibold text-white bg-black/50 backdrop-blur-md px-3 py-1.5 rounded-full">Web</span>
                     </div>
                     <div class="p-6">
-                        <h3 class="font-display text-xl font-bold text-white mb-2 group-hover:text-pink-400 transition-colors">Analytics Dashboard</h3>
-                        <p class="text-slate-400 text-sm mb-4 leading-relaxed">Dashboard analytics real-time dengan visualisasi data interaktif.</p>
+                        <h3 class="font-display text-xl font-bold text-white dark:text-white mb-2 group-hover:text-pink-400 transition-colors">Analytics Dashboard</h3>
+                        <p class="text-slate-400 dark:text-slate-400 text-sm mb-4 leading-relaxed">Dashboard analytics real-time dengan visualisasi data interaktif.</p>
                         <div class="flex flex-wrap gap-2">
-                            <span class="text-xs bg-white/5 text-slate-300 px-3 py-1 rounded-full border border-white/10">Vue.js</span>
-                            <span class="text-xs bg-white/5 text-slate-300 px-3 py-1 rounded-full border border-white/10">D3.js</span>
+                            <span class="text-xs bg-white/5 text-slate-300 dark:text-slate-300 px-3 py-1 rounded-full border border-white/10">Vue.js</span>
+                            <span class="text-xs bg-white/5 text-slate-300 dark:text-slate-300 px-3 py-1 rounded-full border border-white/10">D3.js</span>
                         </div>
                     </div>
                 </div>
@@ -1094,11 +1252,11 @@
                         <span class="absolute top-4 left-4 text-xs font-semibold text-white bg-black/50 backdrop-blur-md px-3 py-1.5 rounded-full">Mobile</span>
                     </div>
                     <div class="p-6">
-                        <h3 class="font-display text-xl font-bold text-white mb-2 group-hover:text-pink-400 transition-colors">Food Delivery App</h3>
-                        <p class="text-slate-400 text-sm mb-4 leading-relaxed">Aplikasi pengiriman makanan dengan live tracking dan pembayaran digital.</p>
+                        <h3 class="font-display text-xl font-bold text-white dark:text-white mb-2 group-hover:text-pink-400 transition-colors">Food Delivery App</h3>
+                        <p class="text-slate-400 dark:text-slate-400 text-sm mb-4 leading-relaxed">Aplikasi pengiriman makanan dengan live tracking dan pembayaran digital.</p>
                         <div class="flex flex-wrap gap-2">
-                            <span class="text-xs bg-white/5 text-slate-300 px-3 py-1 rounded-full border border-white/10">React Native</span>
-                            <span class="text-xs bg-white/5 text-slate-300 px-3 py-1 rounded-full border border-white/10">Node.js</span>
+                            <span class="text-xs bg-white/5 text-slate-300 dark:text-slate-300 px-3 py-1 rounded-full border border-white/10">React Native</span>
+                            <span class="text-xs bg-white/5 text-slate-300 dark:text-slate-300 px-3 py-1 rounded-full border border-white/10">Node.js</span>
                         </div>
                     </div>
                 </div>
@@ -1118,11 +1276,11 @@
                         <span class="absolute top-4 left-4 text-xs font-semibold text-white bg-black/50 backdrop-blur-md px-3 py-1.5 rounded-full">UI/UX</span>
                     </div>
                     <div class="p-6">
-                        <h3 class="font-display text-xl font-bold text-white mb-2 group-hover:text-pink-400 transition-colors">Banking App Redesign</h3>
-                        <p class="text-slate-400 text-sm mb-4 leading-relaxed">Redesain aplikasi perbankan dengan fokus pada kemudahan akses.</p>
+                        <h3 class="font-display text-xl font-bold text-white dark:text-white mb-2 group-hover:text-pink-400 transition-colors">Banking App Redesign</h3>
+                        <p class="text-slate-400 dark:text-slate-400 text-sm mb-4 leading-relaxed">Redesain aplikasi perbankan dengan fokus pada kemudahan akses.</p>
                         <div class="flex flex-wrap gap-2">
-                            <span class="text-xs bg-white/5 text-slate-300 px-3 py-1 rounded-full border border-white/10">Figma</span>
-                            <span class="text-xs bg-white/5 text-slate-300 px-3 py-1 rounded-full border border-white/10">Sketch</span>
+                            <span class="text-xs bg-white/5 text-slate-300 dark:text-slate-300 px-3 py-1 rounded-full border border-white/10">Figma</span>
+                            <span class="text-xs bg-white/5 text-slate-300 dark:text-slate-300 px-3 py-1 rounded-full border border-white/10">Sketch</span>
                         </div>
                     </div>
                 </div>
@@ -1131,7 +1289,7 @@
     </section>
 
     <!-- ==================== TESTIMONI SECTION ==================== -->
-    <section id="testimoni" class="py-32 bg-[#0a0a0f] relative overflow-hidden">
+    <section id="testimoni" class="py-32 bg-[#0a0a0f] dark:bg-[#0a0a0f] relative overflow-hidden">
         <div class="blob w-[500px] h-[500px] bg-violet-600/20 top-0 left-1/4"></div>
         
         <div class="max-w-7xl mx-auto px-6 relative z-10">
@@ -1141,7 +1299,7 @@
                     Testimoni
                     <span class="w-8 h-px bg-pink-500"></span>
                 </span>
-                <h2 class="font-display text-4xl md:text-6xl font-bold text-white mt-4">
+                <h2 class="font-display text-4xl md:text-6xl font-bold text-white dark:text-white mt-4">
                     Apa Kata <span class="gradient-animated">Klien</span>
                 </h2>
             </div>
@@ -1149,58 +1307,55 @@
             <div class="relative max-w-4xl mx-auto reveal">
                 <div class="overflow-hidden rounded-3xl">
                     <div id="testimonialSlider" class="flex testimonial-slider">
-                        <!-- Testimonial 1 -->
                         <div class="w-full flex-shrink-0 px-2">
                             <div class="glass rounded-3xl p-8 md:p-14 relative">
                                 <i class="fas fa-quote-left text-6xl gradient-text opacity-30 absolute top-8 right-8"></i>
                                 <div class="stars text-lg mb-6">
                                     <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
                                 </div>
-                                <p class="text-slate-200 leading-relaxed text-lg md:text-xl mb-8 relative z-10">
-                                    "Ahmad sangat profesional dalam mengerjakan proyek website perusahaan kami. Hasilnya melebihi ekspektasi dan selesai tepat waktu. Sangat direkomendasikan!"
+                                <p class="text-slate-200 dark:text-slate-200 leading-relaxed text-lg md:text-xl mb-8 relative z-10">
+                                    "Alan sangat profesional dalam mengerjakan proyek website perusahaan kami. Hasilnya melebihi ekspektasi dan selesai tepat waktu. Sangat direkomendasikan!"
                                 </p>
                                 <div class="flex items-center gap-4">
                                     <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-violet-500 to-pink-500 flex items-center justify-center text-white font-bold">
                                         BS
                                     </div>
                                     <div>
-                                        <h4 class="font-display font-bold text-white">Budi Santoso</h4>
-                                        <p class="text-sm text-slate-400">CEO, PT Maju Jaya</p>
+                                        <h4 class="font-display font-bold text-white dark:text-white">Budi Santoso</h4>
+                                        <p class="text-sm text-slate-400 dark:text-slate-400">CEO, PT Maju Jaya</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         
-                        <!-- Testimonial 2 -->
                         <div class="w-full flex-shrink-0 px-2">
                             <div class="glass rounded-3xl p-8 md:p-14 relative">
                                 <i class="fas fa-quote-left text-6xl gradient-text opacity-30 absolute top-8 right-8"></i>
                                 <div class="stars text-lg mb-6">
                                     <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
                                 </div>
-                                <p class="text-slate-200 leading-relaxed text-lg md:text-xl mb-8 relative z-10">
-                                    "Kerja sama yang sangat menyenangkan! Ahmad mampu menerjemahkan ide bisnis kami menjadi aplikasi yang user-friendly. Penjualan kami meningkat 200% setelah launch."
+                                <p class="text-slate-200 dark:text-slate-200 leading-relaxed text-lg md:text-xl mb-8 relative z-10">
+                                    "Kerja sama yang sangat menyenangkan! Alan mampu menerjemahkan ide bisnis kami menjadi aplikasi yang user-friendly. Penjualan kami meningkat 200% setelah launch."
                                 </p>
                                 <div class="flex items-center gap-4">
                                     <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-pink-500 to-rose-500 flex items-center justify-center text-white font-bold">
                                         SW
                                     </div>
                                     <div>
-                                        <h4 class="font-display font-bold text-white">Siti Wulandari</h4>
-                                        <p class="text-sm text-slate-400">Founder, Toko Online Kita</p>
+                                        <h4 class="font-display font-bold text-white dark:text-white">Siti Wulandari</h4>
+                                        <p class="text-sm text-slate-400 dark:text-slate-400">Founder, Toko Online Kita</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         
-                        <!-- Testimonial 3 -->
                         <div class="w-full flex-shrink-0 px-2">
                             <div class="glass rounded-3xl p-8 md:p-14 relative">
                                 <i class="fas fa-quote-left text-6xl gradient-text opacity-30 absolute top-8 right-8"></i>
                                 <div class="stars text-lg mb-6">
                                     <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
                                 </div>
-                                <p class="text-slate-200 leading-relaxed text-lg md:text-xl mb-8 relative z-10">
+                                <p class="text-slate-200 dark:text-slate-200 leading-relaxed text-lg md:text-xl mb-8 relative z-10">
                                     "Kualitas kode yang ditulis sangat rapi dan mudah dimaintain. Komunikasi selama proyek berjalan lancar. Pasti akan bekerja sama lagi untuk proyek selanjutnya."
                                 </p>
                                 <div class="flex items-center gap-4">
@@ -1208,8 +1363,8 @@
                                         RP
                                     </div>
                                     <div>
-                                        <h4 class="font-display font-bold text-white">Rudi Pratama</h4>
-                                        <p class="text-sm text-slate-400">CTO, StartupTech</p>
+                                        <h4 class="font-display font-bold text-white dark:text-white">Rudi Pratama</h4>
+                                        <p class="text-sm text-slate-400 dark:text-slate-400">CTO, StartupTech</p>
                                     </div>
                                 </div>
                             </div>
@@ -1217,25 +1372,24 @@
                     </div>
                 </div>
                 
-                <!-- Nav -->
-                <button id="prevBtn" class="absolute left-0 top-1/2 -translate-y-1/2 -ml-3 md:-ml-6 w-12 h-12 glass-strong rounded-full flex items-center justify-center text-white hover:bg-gradient-to-br hover:from-violet-600 hover:to-pink-600 transition-all duration-300 z-10">
+                <button id="prevBtn" class="absolute left-0 top-1/2 -translate-y-1/2 -ml-3 md:-ml-6 w-12 h-12 glass-strong rounded-full flex items-center justify-center text-white dark:text-white hover:bg-gradient-to-br hover:from-violet-600 hover:to-pink-600 transition-all duration-300 z-10">
                     <i class="fas fa-chevron-left"></i>
                 </button>
-                <button id="nextBtn" class="absolute right-0 top-1/2 -translate-y-1/2 -mr-3 md:-mr-6 w-12 h-12 glass-strong rounded-full flex items-center justify-center text-white hover:bg-gradient-to-br hover:from-violet-600 hover:to-pink-600 transition-all duration-300 z-10">
+                <button id="nextBtn" class="absolute right-0 top-1/2 -translate-y-1/2 -mr-3 md:-mr-6 w-12 h-12 glass-strong rounded-full flex items-center justify-center text-white dark:text-white hover:bg-gradient-to-br hover:from-violet-600 hover:to-pink-600 transition-all duration-300 z-10">
                     <i class="fas fa-chevron-right"></i>
                 </button>
                 
                 <div class="flex justify-center gap-2 mt-8" id="dotsContainer">
                     <button class="dot w-8 h-1.5 rounded-full bg-gradient-to-r from-violet-500 to-pink-500 transition-all duration-300" data-index="0"></button>
-                    <button class="dot w-2 h-1.5 rounded-full bg-white/20 transition-all duration-300" data-index="1"></button>
-                    <button class="dot w-2 h-1.5 rounded-full bg-white/20 transition-all duration-300" data-index="2"></button>
+                    <button class="dot w-2 h-1.5 rounded-full bg-white/20 dark:bg-white/20 transition-all duration-300" data-index="1"></button>
+                    <button class="dot w-2 h-1.5 rounded-full bg-white/20 dark:bg-white/20 transition-all duration-300" data-index="2"></button>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- ==================== CONTACT SECTION ==================== -->
-    <section id="contact" class="py-32 bg-[#050508] relative overflow-hidden">
+    <section id="contact" class="py-32 bg-[#050508] dark:bg-[#050508] relative overflow-hidden">
         <div class="blob w-[600px] h-[600px] bg-pink-600/20 bottom-0 left-1/3"></div>
         
         <div class="max-w-7xl mx-auto px-6 relative z-10">
@@ -1245,32 +1399,31 @@
                     Kontak
                     <span class="w-8 h-px bg-pink-500"></span>
                 </span>
-                <h2 class="font-display text-4xl md:text-6xl font-bold text-white mt-4">
+                <h2 class="font-display text-4xl md:text-6xl font-bold text-white dark:text-white mt-4">
                     Mari <span class="gradient-animated">Berkolaborasi</span>
                 </h2>
-                <p class="text-slate-400 mt-6 max-w-2xl mx-auto">Punya proyek atau ide? Kirimkan pesan dan mari kita wujudkan bersama.</p>
+                <p class="text-slate-400 dark:text-slate-400 mt-6 max-w-2xl mx-auto">Punya proyek atau ide? Kirimkan pesan dan mari kita wujudkan bersama.</p>
             </div>
             
             <div class="grid md:grid-cols-5 gap-6">
-                <!-- Contact Info -->
                 <div class="md:col-span-2 space-y-4 reveal">
                     <a href="#" class="glass rounded-2xl p-6 flex items-start gap-4 hover:border-pink-500/30 transition-all duration-300 group">
                         <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-violet-500 to-pink-500 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
                             <i class="fas fa-map-marker-alt text-white"></i>
                         </div>
                         <div>
-                            <h4 class="font-display font-bold text-white">Lokasi</h4>
-                            <p class="text-sm text-slate-400 mt-1">Jakarta, Indonesia</p>
+                            <h4 class="font-display font-bold text-white dark:text-white">Lokasi</h4>
+                            <p class="text-sm text-slate-400 dark:text-slate-400 mt-1">Jakarta, Indonesia</p>
                         </div>
                     </a>
                     
-                    <a href="mailto:ahmad.rizki@email.com" class="glass rounded-2xl p-6 flex items-start gap-4 hover:border-pink-500/30 transition-all duration-300 group">
+                    <a href="mailto:alan.bukit@email.com" class="glass rounded-2xl p-6 flex items-start gap-4 hover:border-pink-500/30 transition-all duration-300 group">
                         <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-500 to-violet-500 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
                             <i class="fas fa-envelope text-white"></i>
                         </div>
                         <div>
-                            <h4 class="font-display font-bold text-white">Email</h4>
-                            <p class="text-sm text-slate-400 mt-1">ahmad.rizki@email.com</p>
+                            <h4 class="font-display font-bold text-white dark:text-white">Email</h4>
+                            <p class="text-sm text-slate-400 dark:text-slate-400 mt-1">alan.bukit@email.com</p>
                         </div>
                     </a>
                     
@@ -1279,50 +1432,49 @@
                             <i class="fas fa-phone text-white"></i>
                         </div>
                         <div>
-                            <h4 class="font-display font-bold text-white">Telepon</h4>
-                            <p class="text-sm text-slate-400 mt-1">+62 812 3456 7890</p>
+                            <h4 class="font-display font-bold text-white dark:text-white">Telepon</h4>
+                            <p class="text-sm text-slate-400 dark:text-slate-400 mt-1">+62 812 3456 7890</p>
                         </div>
                     </a>
                     
                     <div class="glass rounded-2xl p-6">
-                        <h4 class="font-display font-bold text-white mb-4">Ikuti Saya</h4>
+                        <h4 class="font-display font-bold text-white dark:text-white mb-4">Ikuti Saya</h4>
                         <div class="flex gap-3">
-                            <a href="#" class="w-11 h-11 bg-white/5 rounded-xl flex items-center justify-center text-slate-300 hover:text-white hover:bg-gradient-to-br hover:from-violet-600 hover:to-pink-600 transition-all duration-300">
+                            <a href="#" class="w-11 h-11 bg-white/5 dark:bg-white/5 rounded-xl flex items-center justify-center text-slate-300 dark:text-slate-300 hover:text-white hover:bg-gradient-to-br hover:from-violet-600 hover:to-pink-600 transition-all duration-300">
                                 <i class="fab fa-github"></i>
                             </a>
-                            <a href="#" class="w-11 h-11 bg-white/5 rounded-xl flex items-center justify-center text-slate-300 hover:text-white hover:bg-gradient-to-br hover:from-violet-600 hover:to-pink-600 transition-all duration-300">
+                            <a href="#" class="w-11 h-11 bg-white/5 dark:bg-white/5 rounded-xl flex items-center justify-center text-slate-300 dark:text-slate-300 hover:text-white hover:bg-gradient-to-br hover:from-violet-600 hover:to-pink-600 transition-all duration-300">
                                 <i class="fab fa-linkedin-in"></i>
                             </a>
-                            <a href="#" class="w-11 h-11 bg-white/5 rounded-xl flex items-center justify-center text-slate-300 hover:text-white hover:bg-gradient-to-br hover:from-violet-600 hover:to-pink-600 transition-all duration-300">
+                            <a href="#" class="w-11 h-11 bg-white/5 dark:bg-white/5 rounded-xl flex items-center justify-center text-slate-300 dark:text-slate-300 hover:text-white hover:bg-gradient-to-br hover:from-violet-600 hover:to-pink-600 transition-all duration-300">
                                 <i class="fab fa-instagram"></i>
                             </a>
-                            <a href="#" class="w-11 h-11 bg-white/5 rounded-xl flex items-center justify-center text-slate-300 hover:text-white hover:bg-gradient-to-br hover:from-violet-600 hover:to-pink-600 transition-all duration-300">
+                            <a href="#" class="w-11 h-11 bg-white/5 dark:bg-white/5 rounded-xl flex items-center justify-center text-slate-300 dark:text-slate-300 hover:text-white hover:bg-gradient-to-br hover:from-violet-600 hover:to-pink-600 transition-all duration-300">
                                 <i class="fab fa-dribbble"></i>
                             </a>
                         </div>
                     </div>
                 </div>
                 
-                <!-- Form -->
                 <div class="md:col-span-3 reveal">
                     <form id="contactForm" class="glass rounded-3xl p-8 md:p-10">
                         <div class="grid md:grid-cols-2 gap-5 mb-5">
                             <div>
-                                <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Nama Lengkap</label>
-                                <input type="text" required class="w-full px-5 py-3.5 bg-white/5 border border-white/10 rounded-xl text-white placeholder-slate-500 focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20 outline-none transition" placeholder="Nama Anda">
+                                <label class="block text-xs font-semibold text-slate-400 dark:text-slate-400 uppercase tracking-wider mb-2">Nama Lengkap</label>
+                                <input type="text" required class="w-full px-5 py-3.5 bg-white/5 dark:bg-white/5 border border-white/10 dark:border-white/10 rounded-xl text-white dark:text-white placeholder-slate-500 focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20 outline-none transition" placeholder="Nama Anda">
                             </div>
                             <div>
-                                <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Email</label>
-                                <input type="email" required class="w-full px-5 py-3.5 bg-white/5 border border-white/10 rounded-xl text-white placeholder-slate-500 focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20 outline-none transition" placeholder="email@contoh.com">
+                                <label class="block text-xs font-semibold text-slate-400 dark:text-slate-400 uppercase tracking-wider mb-2">Email</label>
+                                <input type="email" required class="w-full px-5 py-3.5 bg-white/5 dark:bg-white/5 border border-white/10 dark:border-white/10 rounded-xl text-white dark:text-white placeholder-slate-500 focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20 outline-none transition" placeholder="email@contoh.com">
                             </div>
                         </div>
                         <div class="mb-5">
-                            <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Subjek</label>
-                            <input type="text" required class="w-full px-5 py-3.5 bg-white/5 border border-white/10 rounded-xl text-white placeholder-slate-500 focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20 outline-none transition" placeholder="Subjek pesan">
+                            <label class="block text-xs font-semibold text-slate-400 dark:text-slate-400 uppercase tracking-wider mb-2">Subjek</label>
+                            <input type="text" required class="w-full px-5 py-3.5 bg-white/5 dark:bg-white/5 border border-white/10 dark:border-white/10 rounded-xl text-white dark:text-white placeholder-slate-500 focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20 outline-none transition" placeholder="Subjek pesan">
                         </div>
                         <div class="mb-6">
-                            <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Pesan</label>
-                            <textarea rows="5" required class="w-full px-5 py-3.5 bg-white/5 border border-white/10 rounded-xl text-white placeholder-slate-500 focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20 outline-none transition resize-none" placeholder="Tulis pesan Anda..."></textarea>
+                            <label class="block text-xs font-semibold text-slate-400 dark:text-slate-400 uppercase tracking-wider mb-2">Pesan</label>
+                            <textarea rows="5" required class="w-full px-5 py-3.5 bg-white/5 dark:bg-white/5 border border-white/10 dark:border-white/10 rounded-xl text-white dark:text-white placeholder-slate-500 focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20 outline-none transition resize-none" placeholder="Tulis pesan Anda..."></textarea>
                         </div>
                         <button type="submit" class="magnetic group w-full bg-gradient-to-r from-violet-600 to-pink-600 text-white py-4 rounded-xl font-semibold relative overflow-hidden hover:shadow-lg hover:shadow-pink-500/50 transition-all duration-300">
                             <span class="relative z-10 inline-flex items-center gap-2">
@@ -1337,21 +1489,21 @@
     </section>
 
     <!-- ==================== FOOTER ==================== -->
-    <footer class="bg-[#050508] border-t border-white/5 py-16">
+    <footer class="bg-[#050508] dark:bg-[#050508] border-t border-white/5 dark:border-white/5 py-16">
         <div class="max-w-7xl mx-auto px-6">
             <div class="grid md:grid-cols-12 gap-10 mb-12">
                 <div class="md:col-span-5">
                     <a href="#" class="flex items-center gap-2 mb-6">
                         <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-500 to-pink-500 flex items-center justify-center font-bold text-white">AR</div>
-                        <span class="text-xl font-bold font-display text-white">Ahmad<span class="text-pink-500">.</span></span>
+                        <span class="text-xl font-bold font-display text-white dark:text-white">Alan<span class="text-pink-500">.</span></span>
                     </a>
-                    <p class="text-slate-400 max-w-sm leading-relaxed">
-                        Full Stack Developer yang berdedikasi menciptakan solusi digital inovatif dan berkualitas tinggi.
+                    <p class="text-slate-400 dark:text-slate-400 max-w-sm leading-relaxed">
+                        Direktur Mobile Legend yang berdedikasi menciptakan solusi digital inovatif dan berkualitas tinggi.
                     </p>
                 </div>
                 <div class="md:col-span-3">
-                    <h4 class="font-display font-bold text-white mb-4">Menu</h4>
-                    <ul class="space-y-3 text-slate-400 text-sm">
+                    <h4 class="font-display font-bold text-white dark:text-white mb-4">Menu</h4>
+                    <ul class="space-y-3 text-slate-400 dark:text-slate-400 text-sm">
                         <li><a href="#about" class="hover:text-pink-400 transition">About</a></li>
                         <li><a href="#qualification" class="hover:text-pink-400 transition">Qualification</a></li>
                         <li><a href="#projects" class="hover:text-pink-400 transition">Projects</a></li>
@@ -1359,8 +1511,8 @@
                     </ul>
                 </div>
                 <div class="md:col-span-4">
-                    <h4 class="font-display font-bold text-white mb-4">Layanan</h4>
-                    <ul class="space-y-3 text-slate-400 text-sm">
+                    <h4 class="font-display font-bold text-white dark:text-white mb-4">Layanan</h4>
+                    <ul class="space-y-3 text-slate-400 dark:text-slate-400 text-sm">
                         <li><a href="#" class="hover:text-pink-400 transition">Web Development</a></li>
                         <li><a href="#" class="hover:text-pink-400 transition">Mobile App</a></li>
                         <li><a href="#" class="hover:text-pink-400 transition">UI/UX Design</a></li>
@@ -1368,8 +1520,8 @@
                     </ul>
                 </div>
             </div>
-            <div class="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-slate-500 text-sm">
-                <p>&copy; 2024 Ahmad Rizki. Made with <i class="fas fa-heart text-pink-500"></i> in Indonesia</p>
+            <div class="border-t border-white/5 dark:border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-slate-500 dark:text-slate-500 text-sm">
+                <p>&copy; 2024 Alan Bukit. Made with <i class="fas fa-heart text-pink-500"></i> in Indonesia</p>
                 <div class="flex gap-6">
                     <a href="#" class="hover:text-pink-400 transition">Privacy</a>
                     <a href="#" class="hover:text-pink-400 transition">Terms</a>
@@ -1385,6 +1537,66 @@
 
     <!-- ==================== JAVASCRIPT ==================== -->
     <script>
+        // ===== THEME TOGGLE =====
+        const html = document.documentElement;
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        
+        // Check saved theme or system preference
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        // Apply theme on load
+        if (savedTheme === 'light') {
+            html.classList.remove('dark');
+            themeIcon.className = 'fas fa-sun';
+        } else if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+            html.classList.add('dark');
+            themeIcon.className = 'fas fa-moon';
+        } else {
+            html.classList.remove('dark');
+            themeIcon.className = 'fas fa-sun';
+        }
+        
+        // Toggle theme
+        themeToggle.addEventListener('click', () => {
+            const isDark = html.classList.toggle('dark');
+            
+            if (isDark) {
+                themeIcon.className = 'fas fa-moon';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                themeIcon.className = 'fas fa-sun';
+                localStorage.setItem('theme', 'light');
+            }
+            
+            // Update hero overlay for light mode
+            updateHeroTheme();
+        });
+        
+        // Update hero overlay & vignette based on theme
+        function updateHeroTheme() {
+            const isDark = html.classList.contains('dark');
+            const heroOverlay = document.getElementById('heroOverlay');
+            const heroVignette = document.getElementById('heroVignette');
+            const heroBg = document.getElementById('heroBg');
+            
+            if (heroOverlay) {
+                heroOverlay.style.background = isDark ? 'rgba(10, 10, 15, 0.6)' : 'rgba(248, 250, 252, 0.7)';
+            }
+            if (heroVignette) {
+                heroVignette.style.background = isDark 
+                    ? 'radial-gradient(ellipse at center, transparent 30%, #0a0a0f 100%)'
+                    : 'radial-gradient(ellipse at center, transparent 30%, #f8fafc 100%)';
+            }
+            if (heroBg) {
+                heroBg.style.opacity = isDark ? '0.3' : '0.12';
+            }
+        }
+        
+        // Initialize hero theme
+        updateHeroTheme();
+
         // ===== Loader =====
         window.addEventListener('load', () => {
             let progress = 0;
@@ -1424,7 +1636,6 @@
         }
         animateCursor();
 
-        // Hover effect
         document.querySelectorAll('a, button, .card-hover, input, textarea').forEach(el => {
             el.addEventListener('mouseenter', () => cursorOutline.classList.add('hover'));
             el.addEventListener('mouseleave', () => cursorOutline.classList.remove('hover'));
@@ -1461,11 +1672,18 @@
         // ===== Navbar =====
         const navbar = document.getElementById('navbar');
         window.addEventListener('scroll', () => {
+            const isDark = html.classList.contains('dark');
             if (window.scrollY > 50) {
-                navbar.classList.add('bg-[#0a0a0f]/80', 'backdrop-blur-xl', 'border-b', 'border-white/5', 'py-3');
+                navbar.classList.add('backdrop-blur-xl', 'border-b', 'border-white/5', 'py-3');
+                if (isDark) {
+                    navbar.style.background = 'rgba(10, 10, 15, 0.8)';
+                } else {
+                    navbar.style.background = 'rgba(248, 250, 252, 0.85)';
+                }
                 navbar.classList.remove('py-5');
             } else {
-                navbar.classList.remove('bg-[#0a0a0f]/80', 'backdrop-blur-xl', 'border-b', 'border-white/5', 'py-3');
+                navbar.classList.remove('backdrop-blur-xl', 'border-b', 'border-white/5', 'py-3');
+                navbar.style.background = 'transparent';
                 navbar.classList.add('py-5');
             }
         });
