@@ -261,22 +261,17 @@
             transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
-        /* ===== Project Tilt ===== */
-        .tilt-card {
-            transform-style: preserve-3d;
-            transition: transform 0.3s ease;
-        }
-        
         /* ===== Scroll Indicator ===== */
         .scroll-line {
             position: absolute;
-            bottom: 2rem;
+            bottom: 5.5rem;
             left: 50%;
             transform: translateX(-50%);
             width: 1px;
             height: 60px;
             background: linear-gradient(180deg, transparent, #ec4899, transparent);
             overflow: hidden;
+            z-index: 20;
         }
         .scroll-line::after {
             content: '';
@@ -349,6 +344,7 @@
                 linear-gradient(90deg, rgba(124, 58, 237, 0.07) 1px, transparent 1px);
             background-size: 50px 50px;
             mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+            -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
         }
         
         /* ===== Spotlight ===== */
@@ -383,6 +379,48 @@
         
         /* ===== Testimonial Slider ===== */
         .testimonial-slider { transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
+        
+        /* ===== Card Hover ===== */
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-8px);
+        }
+        
+        /* ===== Floating Particles ===== */
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(236, 72, 153, 0.6);
+            animation: particleFloat 8s ease-in-out infinite;
+            opacity: 0.7;
+        }
+        
+        @keyframes particleFloat {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+                opacity: 0.3;
+            }
+            50% {
+                transform: translateY(-30px) translateX(15px);
+                opacity: 1;
+            }
+        }
+        
+        /* ===== Hero Background Parallax ===== */
+        #heroBg {
+            will-change: transform;
+            transition: transform 0.1s ease-out;
+        }
+        
+        /* ===== Project Overlay ===== */
+        .project-overlay {
+            transition: opacity 0.3s ease;
+        }
     </style>
 </head>
 <body class="bg-[#0a0a0f] text-slate-200 overflow-x-hidden noise">
@@ -449,14 +487,58 @@
 
     <!-- ==================== HERO SECTION ==================== -->
     <section id="hero" class="relative min-h-screen flex items-center overflow-hidden bg-[#0a0a0f]">
-        <!-- Grid Pattern -->
-        <div class="absolute inset-0 grid-pattern"></div>
-        
-        <!-- Blobs -->
-        <div class="blob w-[500px] h-[500px] bg-violet-600 top-0 -left-40"></div>
-        <div class="blob w-[600px] h-[600px] bg-pink-600 bottom-0 -right-40" style="animation-delay: 2s;"></div>
-        <div class="blob w-[400px] h-[400px] bg-cyan-500 top-1/3 left-1/2" style="animation-delay: 4s;"></div>
-        
+
+        <!-- ===== LAYER 1: Background Image ===== -->
+        <div class="absolute inset-0 z-0 overflow-hidden">
+            <img 
+                src="https://wallpaperaccess.com/full/1101006.png" 
+                alt="Background" 
+                class="w-full h-full object-cover opacity-30 scale-110"
+                id="heroBg"
+            >
+        </div>
+
+        <!-- ===== LAYER 3: Animated Gradient Mesh ===== -->
+        <div class="absolute inset-0 z-0 opacity-50" style="
+            background: radial-gradient(circle at 20% 30%, rgba(124, 58, 237, 0.5) 0%, transparent 40%),
+                        radial-gradient(circle at 80% 70%, rgba(236, 72, 153, 0.5) 0%, transparent 40%),
+                        radial-gradient(circle at 50% 50%, rgba(6, 182, 212, 0.4) 0%, transparent 40%);
+            filter: blur(60px);
+        "></div>
+
+        <!-- ===== LAYER 4: Grid Pattern ===== -->
+        <div class="absolute inset-0 grid-pattern opacity-60 z-0"></div>
+
+        <!-- ===== LAYER 5: Noise Texture ===== -->
+        <div class="absolute inset-0 opacity-[0.05] pointer-events-none z-0" style="
+            background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E');
+        "></div>
+
+        <!-- ===== LAYER 6: Vignette ===== -->
+        <div class="absolute inset-0 pointer-events-none z-0" style="
+            background: radial-gradient(ellipse at center, transparent 30%, #0a0a0f 100%);
+        "></div>
+
+        <!-- ===== LAYER 7: Blobs (Animated) ===== -->
+        <div class="blob w-[500px] h-[500px] bg-violet-600/50 top-0 -left-40 z-0"></div>
+        <div class="blob w-[600px] h-[600px] bg-pink-600/40 bottom-0 -right-40 z-0" style="animation-delay: 2s;"></div>
+        <div class="blob w-[400px] h-[400px] bg-cyan-500/30 top-1/3 left-1/2 z-0" style="animation-delay: 4s;"></div>
+
+        <!-- ===== LAYER 8: Floating Particles ===== -->
+        <div class="absolute inset-0 z-0 pointer-events-none" id="particles">
+            <div class="particle" style="top: 15%; left: 10%; animation-delay: 0s;"></div>
+            <div class="particle" style="top: 25%; left: 85%; animation-delay: 1s;"></div>
+            <div class="particle" style="top: 60%; left: 20%; animation-delay: 2s;"></div>
+            <div class="particle" style="top: 75%; left: 90%; animation-delay: 3s;"></div>
+            <div class="particle" style="top: 40%; left: 50%; animation-delay: 4s;"></div>
+            <div class="particle" style="top: 85%; left: 35%; animation-delay: 5s;"></div>
+            <div class="particle" style="top: 10%; left: 70%; animation-delay: 6s;"></div>
+            <div class="particle" style="top: 55%; left: 75%; animation-delay: 7s;"></div>
+            <div class="particle" style="top: 30%; left: 40%; animation-delay: 2.5s;"></div>
+            <div class="particle" style="top: 70%; left: 60%; animation-delay: 5.5s;"></div>
+        </div>
+
+        <!-- ===== Content ===== -->
         <div class="max-w-7xl mx-auto px-6 py-32 grid md:grid-cols-12 gap-12 items-center relative z-10">
             <div class="md:col-span-7">
                 <div class="inline-flex items-center gap-2 glass px-4 py-2 rounded-full text-sm font-medium mb-8 reveal">
@@ -469,8 +551,8 @@
                 
                 <h1 class="font-display text-5xl md:text-7xl lg:text-8xl font-bold leading-[0.95] mb-6 reveal">
                     <span class="block text-white">Halo, saya</span>
-                    <span class="block gradient-animated">Alan Bukit</span>
-                    <span class="block text-white/40 text-3xl md:text-5xl lg:text-6xl mt-4">Owner Mobile Legend</span>
+                    <span class="block gradient-animated">Ahmad Rizki</span>
+                    <span class="block text-white/40 text-3xl md:text-5xl lg:text-6xl mt-4">Full Stack Developer</span>
                 </h1>
                 
                 <p class="text-lg text-slate-400 mb-10 max-w-xl leading-relaxed reveal">
@@ -512,11 +594,14 @@
             <!-- Hero Visual -->
             <div class="md:col-span-5 hidden md:flex justify-center items-center relative reveal">
                 <div class="relative w-96 h-96">
+                    <!-- Glow behind avatar -->
+                    <div class="absolute inset-0 rounded-full bg-gradient-to-br from-violet-600 via-pink-600 to-cyan-500 opacity-40 blur-3xl"></div>
+
                     <!-- Rotating Ring -->
-                    <div class="absolute inset-0 avatar-ring rounded-full opacity-30 blur-md"></div>
+                    <div class="absolute inset-0 avatar-ring rounded-full opacity-40 blur-md"></div>
                     <div class="absolute inset-2 avatar-ring rounded-full p-[2px]">
                         <div class="w-full h-full rounded-full bg-[#0a0a0f] flex items-center justify-center overflow-hidden">
-                            <div class="w-full h-full bg-gradient-to-br from-violet-600/20 via-pink-500/20 to-cyan-500/20 flex items-center justify-center">
+                            <div class="w-full h-full bg-gradient-to-br from-violet-600/30 via-pink-500/30 to-cyan-500/30 flex items-center justify-center backdrop-blur-xl">
                                 <i class="fas fa-user-astronaut text-[140px] gradient-text"></i>
                             </div>
                         </div>
@@ -561,7 +646,7 @@
         <div class="scroll-line"></div>
         
         <!-- Marquee -->
-        <div class="absolute bottom-0 left-0 right-0 border-y border-white/5 py-5 overflow-hidden bg-black/20 backdrop-blur-sm">
+        <div class="absolute bottom-0 left-0 right-0 border-y border-white/5 py-5 overflow-hidden bg-black/40 backdrop-blur-md z-10">
             <div class="marquee-track">
                 <div class="flex items-center gap-12 px-6 text-slate-500 font-display font-semibold text-2xl whitespace-nowrap">
                     <span>React</span><span class="text-pink-500">✦</span>
@@ -904,7 +989,7 @@
                             <i class="fas fa-shopping-cart text-white/40 text-7xl"></i>
                         </div>
                         <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-transparent to-transparent"></div>
-                        <div class="project-overlay absolute inset-0 bg-gradient-to-br from-violet-600/95 to-pink-600/95 flex items-center justify-center opacity-0 transition-opacity duration-300">
+                        <div class="project-overlay absolute inset-0 bg-gradient-to-br from-violet-600/95 to-pink-600/95 flex items-center justify-center opacity-0">
                             <a href="#" class="w-14 h-14 bg-white rounded-full inline-flex items-center justify-center text-violet-600 hover:scale-110 transition-transform">
                                 <i class="fas fa-arrow-up-right-from-square"></i>
                             </a>
@@ -929,7 +1014,7 @@
                             <i class="fas fa-mobile-alt text-white/40 text-7xl"></i>
                         </div>
                         <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-transparent to-transparent"></div>
-                        <div class="project-overlay absolute inset-0 bg-gradient-to-br from-pink-600/95 to-violet-600/95 flex items-center justify-center opacity-0 transition-opacity duration-300">
+                        <div class="project-overlay absolute inset-0 bg-gradient-to-br from-pink-600/95 to-violet-600/95 flex items-center justify-center opacity-0">
                             <a href="#" class="w-14 h-14 bg-white rounded-full inline-flex items-center justify-center text-pink-600 hover:scale-110 transition-transform">
                                 <i class="fas fa-arrow-up-right-from-square"></i>
                             </a>
@@ -953,7 +1038,7 @@
                             <i class="fas fa-palette text-white/40 text-7xl"></i>
                         </div>
                         <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-transparent to-transparent"></div>
-                        <div class="project-overlay absolute inset-0 bg-gradient-to-br from-amber-500/95 to-pink-600/95 flex items-center justify-center opacity-0 transition-opacity duration-300">
+                        <div class="project-overlay absolute inset-0 bg-gradient-to-br from-amber-500/95 to-pink-600/95 flex items-center justify-center opacity-0">
                             <a href="#" class="w-14 h-14 bg-white rounded-full inline-flex items-center justify-center text-amber-600 hover:scale-110 transition-transform">
                                 <i class="fas fa-arrow-up-right-from-square"></i>
                             </a>
@@ -977,7 +1062,7 @@
                             <i class="fas fa-chart-line text-white/40 text-7xl"></i>
                         </div>
                         <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-transparent to-transparent"></div>
-                        <div class="project-overlay absolute inset-0 bg-gradient-to-br from-emerald-500/95 to-cyan-600/95 flex items-center justify-center opacity-0 transition-opacity duration-300">
+                        <div class="project-overlay absolute inset-0 bg-gradient-to-br from-emerald-500/95 to-cyan-600/95 flex items-center justify-center opacity-0">
                             <a href="#" class="w-14 h-14 bg-white rounded-full inline-flex items-center justify-center text-emerald-600 hover:scale-110 transition-transform">
                                 <i class="fas fa-arrow-up-right-from-square"></i>
                             </a>
@@ -1001,7 +1086,7 @@
                             <i class="fas fa-utensils text-white/40 text-7xl"></i>
                         </div>
                         <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-transparent to-transparent"></div>
-                        <div class="project-overlay absolute inset-0 bg-gradient-to-br from-rose-500/95 to-pink-600/95 flex items-center justify-center opacity-0 transition-opacity duration-300">
+                        <div class="project-overlay absolute inset-0 bg-gradient-to-br from-rose-500/95 to-pink-600/95 flex items-center justify-center opacity-0">
                             <a href="#" class="w-14 h-14 bg-white rounded-full inline-flex items-center justify-center text-rose-600 hover:scale-110 transition-transform">
                                 <i class="fas fa-arrow-up-right-from-square"></i>
                             </a>
@@ -1025,7 +1110,7 @@
                             <i class="fas fa-paint-brush text-white/40 text-7xl"></i>
                         </div>
                         <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-transparent to-transparent"></div>
-                        <div class="project-overlay absolute inset-0 bg-gradient-to-br from-cyan-500/95 to-blue-600/95 flex items-center justify-center opacity-0 transition-opacity duration-300">
+                        <div class="project-overlay absolute inset-0 bg-gradient-to-br from-cyan-500/95 to-blue-600/95 flex items-center justify-center opacity-0">
                             <a href="#" class="w-14 h-14 bg-white rounded-full inline-flex items-center justify-center text-cyan-600 hover:scale-110 transition-transform">
                                 <i class="fas fa-arrow-up-right-from-square"></i>
                             </a>
@@ -1344,6 +1429,17 @@
             el.addEventListener('mouseenter', () => cursorOutline.classList.add('hover'));
             el.addEventListener('mouseleave', () => cursorOutline.classList.remove('hover'));
         });
+
+        // ===== Hero Parallax Effect =====
+        const heroBg = document.getElementById('heroBg');
+        if (heroBg) {
+            window.addEventListener('scroll', () => {
+                const scrolled = window.scrollY;
+                if (scrolled < window.innerHeight) {
+                    heroBg.style.transform = `scale(1.1) translateY(${scrolled * 0.3}px)`;
+                }
+            });
+        }
 
         // ===== Spotlight Effect =====
         document.querySelectorAll('.spotlight').forEach(el => {
